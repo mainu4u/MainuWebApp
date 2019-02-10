@@ -1,0 +1,104 @@
+<!DOCTYPE HTML>
+<html lang="es">
+<head>
+    <title>MainU</title>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
+    <link rel="stylesheet" href="assets/css/main.css"/>
+    <link rel="shortcut icon" type="image/png" href="/favicon.png"/>
+    <noscript>
+        <link rel="stylesheet" href="assets/css/noscript.css"/>
+    </noscript>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+        function bocadillos() {
+            fetch('https://api.mainu.eus/bocadillos', {mode: 'cors'})
+                .then(res => res.json())
+                .then(function (bocadillos) {
+                    console.log(bocadillos);
+                    let lista = "";
+                    for (const bocadillo of bocadillos) {
+                        lista = lista + "<a >" + bocadillo.nombre + " <b>" + bocadillo.precio + "</b></a><br/>";
+                    }
+                    document.getElementById("lista-bocadillos").innerHTML = lista;
+                    document.getElementById("menu").style.display = "none";
+                    document.getElementById("bocadillos").style.display = "block";
+                })
+                .catch(function (error) {
+                    console.log("Error: " + error.message);
+                });
+        }
+
+        function menu_del_dia() {
+            fetch('https://api.mainu.eus/menu', {mode: 'cors'})
+                .then(res => res.json())
+                .then(function (menu) {
+                    console.log(menu);
+                    let primeros = "";
+                    let segundos = "";
+                    let postre = "";
+                    for (const plato of menu.primeros) {
+                        primeros = primeros + "<a >" + plato.nombre + "</a><br/>";
+                    }
+                    for (const plato of menu.segundos) {
+                        segundos = segundos + "<a >" + plato.nombre + "</a><br/>";
+                    }
+                    for (const plato of menu.postre) {
+                        postre = postre + "<a >" + plato.nombre + "</a> ";
+                    }
+                    document.getElementById("primeros").innerHTML = primeros;
+                    document.getElementById("segundos").innerHTML = segundos;
+                    document.getElementById("postre").innerHTML = postre;
+                    document.getElementById("bocadillos").style.display = "none";
+                    document.getElementById("menu").style.display = "block";
+                })
+                .catch(function (error) {
+                    console.log("Error: " + error.message);
+                });
+        }
+    </script>
+</head>
+<body class="is-preload">
+<div id="wrapper">
+    <header id="header">
+        <h1>MainU</h1>
+        <p>Versión web
+            <small><sup>BETA</sup></small>
+        </p>
+    </header>
+    <div align="center" id="main">
+        <section id="content" class="main">
+            <a class="button" onclick="menu_del_dia()">Menú del día</a>
+            <a class="button" onclick="bocadillos()">Bocadillos</a>
+        </section>
+        <section id="menu" class="main" style="display: none;">
+            <h2>Primeros</h2>
+            <div id="primeros"></div>
+            <br/>
+            <h2>Segundos</h2>
+            <div id="segundos"></div>
+            <br/>
+            <h2>Postre</h2>
+            <div id="postre"></div>
+        </section>
+        <section id="bocadillos" class="main" style="display: none;">
+            <h2>Listado de bocadillos</h2>
+            <div id="lista-bocadillos"></div>
+        </section>
+        <nav id="nav">
+            <ul>
+                <li><a style="color:#333333" href="https://github.com/mainu4u">Ir a Github</a></li>
+                <li><a href="https://mainu.eus">Ir a mainu.eus</a></li>
+            </ul>
+        </nav>
+    </div>
+</div>
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/js/jquery.scrollex.min.js"></script>
+<script src="assets/js/jquery.scrolly.min.js"></script>
+<script src="assets/js/browser.min.js"></script>
+<script src="assets/js/breakpoints.min.js"></script>
+<script src="assets/js/util.js"></script>
+<script src="assets/js/main.js"></script>
+</body>
+</html>
