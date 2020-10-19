@@ -2,7 +2,7 @@
 
 <img src=https://i.imgur.com/Wc9VOaZ.png?1 width=150px/>
 
-MainU WebApp <img src=https://img.shields.io/badge/maintenance-inactive-inactive/>
+MainU WebApp ![](https://img.shields.io/badge/maintenance-inactive-inactive)
 ===================
 
 **MainU WebApp** es una aproximación para ofrecer los servicios que proporciona la [API de MainU](https://github.com/mainu4u/MainuAPI) a través de una web, utilizando HTML, CSS y JavaScript.
